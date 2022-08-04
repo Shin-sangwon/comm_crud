@@ -59,7 +59,7 @@ class MyMapTest {
 
     @BeforeAll
     public void beforeAll() {
-        myMap = new MyMap("localhost", "lldj", "lldj1234", "my_map");
+        myMap = new MyMap("localhost", "root", "root123", "my_map");
         // 개발모드를 켠다.
         // 개발모드를 켜면 실행되는 쿼리가 콘솔에 출력됨
         myMap.setDevMode(true);

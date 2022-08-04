@@ -15,4 +15,12 @@ public class ArticleService {
     public List<ArticleDto> getArticles() {
         return articleRepository.getArticles();
     }
+
+    public ArticleDto getArticleById(long id) {
+        return articleRepository.getArticleById(id);
+    }
+
+    public long getArticlesCount() {
+        return articleRepository.getArticlesCount();
+    }
 }

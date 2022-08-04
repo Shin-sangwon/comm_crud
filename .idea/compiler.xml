@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="comm__3rd" />
+        <module name="comm__crud_4th" />
       </profile>
     </annotationProcessing>
   </component>
