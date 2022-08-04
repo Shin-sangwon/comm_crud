@@ -44,7 +44,7 @@ public class ArticleServiceTest {
 
     private void makeArticleTestData() {
         IntStream.rangeClosed(1, TEST_DATA_SIZE).forEach(no -> {
-            boolean isBlind = false;
+            boolean isBlind = no >= 11 && no <= 20;
             String title = "제목%d".formatted(no);
             String body = "내용%d".formatted(no);
 
@@ -143,4 +143,64 @@ public class ArticleServiceTest {
         assertThat(articleDto).isNull();
 
     }
+
+    @Test
+    public void 객체로_전달하여_다음글을_가져온다(){
+
+        ArticleDto articleDto = articleService.getArticleById(30);
+        ArticleDto articleDto2 = articleService.getNextArticle(articleDto);
+        assertThat(articleDto2).isNull();
+
+    }
+
+    @Test
+    public void 객체로_전달하여_이전글을_가져온다(){
+
+        ArticleDto articleDto = articleService.getArticleById(2);
+        ArticleDto articleDto2 = articleService.getPreviousArticle(articleDto);
+
+        assertThat(articleDto2.getId()).isEqualTo(1L);
+        assertThat(articleDto2.getTitle()).isEqualTo("제목1");
+        assertThat(articleDto2.getBody()).isEqualTo("내용1");
+        assertThat(articleDto2.getCreatedDate()).isNotNull();
+        assertThat(articleDto2.getModifiedDate()).isNotNull();
+        assertThat(articleDto2.isBlind()).isFalse();
+    }
+
+    @Test
+    public void ID를_전달하여_다음글을_가져온다(){
+
+        ArticleDto articleDto2 = articleService.getNextArticle(3);
+        assertThat(articleDto2.getId()).isEqualTo(4L);
+        assertThat(articleDto2.getTitle()).isEqualTo("제목4");
+        assertThat(articleDto2.getBody()).isEqualTo("내용4");
+        assertThat(articleDto2.getCreatedDate()).isNotNull();
+        assertThat(articleDto2.getModifiedDate()).isNotNull();
+        assertThat(articleDto2.isBlind()).isFalse();
+
+    }
+
+    @Test
+    public void ID를_전달하여_이전글을_가져온다(){
+
+        ArticleDto articleDto2 = articleService.getPreviousArticle(1);
+        assertThat(articleDto2).isNull();
+
+    }
+
+    @Test
+    public void 블라인드된_글은_표시하지_않기(){
+        //11번~20번 블라인드 처리
+        ArticleDto articleDto2 = articleService.getNextArticle(10);
+        assertThat(articleDto2.getId()).isEqualTo(21L);
+        assertThat(articleDto2.getTitle()).isEqualTo("제목21");
+        assertThat(articleDto2.getBody()).isEqualTo("내용21");
+        assertThat(articleDto2.getCreatedDate()).isNotNull();
+        assertThat(articleDto2.getModifiedDate()).isNotNull();
+        assertThat(articleDto2.isBlind()).isFalse();
+
+
+    }
+
+
 }

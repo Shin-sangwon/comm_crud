@@ -76,4 +76,55 @@ public class ArticleRepository {
 
         sql.delete();
     }
+
+    public ArticleDto getNextArticle(ArticleDto articleDto) {
+
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT *")
+                .append("FROM article")
+                .append("WHERE id > ? AND isBlind = 0", articleDto.getId())
+                .append("ORDER BY id ASC")
+                .append("LIMIT 1");
+        return sql.selectRow(ArticleDto.class);
+    }
+
+    public ArticleDto getPreviousArticle(ArticleDto articleDto) {
+
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT *")
+                .append("FROM article")
+                .append("WHERE id < ? AND isBlind = 0", articleDto.getId())
+                .append("ORDER BY id DESC")
+                .append("LIMIT 1");
+        return sql.selectRow(ArticleDto.class);
+
+    }
+
+    public ArticleDto getNextArticle(long id) {
+
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT *")
+                .append("FROM article")
+                .append("WHERE id > ? AND isBlind = 0", id)
+                .append("ORDER BY id ASC")
+                .append("LIMIT 1");
+        return sql.selectRow(ArticleDto.class);
+    }
+
+    public ArticleDto getPreviousArticle(long id) {
+
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT *")
+                .append("FROM article")
+                .append("WHERE id < ? AND isBlind = 0", id)
+                .append("ORDER BY id DESC")
+                .append("LIMIT 1");
+        return sql.selectRow(ArticleDto.class);
+
+    }
+
 }

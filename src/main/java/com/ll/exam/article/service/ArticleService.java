@@ -37,4 +37,21 @@ public class ArticleService {
     public void modify(long id, String title, String body, boolean isBlind) {
         articleRepository.modify(id, title, body, isBlind);
     }
+
+    public ArticleDto getNextArticle(ArticleDto articleDto) {
+        return articleRepository.getNextArticle(articleDto);
+    }
+
+    public ArticleDto getPreviousArticle(ArticleDto articleDto) {
+        return articleRepository.getPreviousArticle(articleDto);
+    }
+
+    public ArticleDto getNextArticle(long id) {
+        return articleRepository.getNextArticle(id);
+    }
+
+    public ArticleDto getPreviousArticle(long id) {
+        return articleRepository.getPreviousArticle(id);
+    }
+
 }
